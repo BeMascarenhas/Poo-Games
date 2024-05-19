@@ -1,39 +1,18 @@
 #include <raylib.h>
+#include "spaceship.cpp"
 
 int main()
 {
     
-   InitWindow(800, 800, "Hello, Raylib!");
+   InitWindow(750, 700, "Hello, Raylib!");
     SetTargetFPS(60);
-    int x,y;
-    x = 400;
-    y = 400;
-    
-    while (!WindowShouldClose())
-    {
-       
-        if (IsKeyDown(KEY_UP))
-        {   
-             y-=10;
-            
-        }
-        if (IsKeyDown(KEY_DOWN))
-        {
-            y+=10;
-        }
-        if (IsKeyDown(KEY_LEFT))
-        {
-            x-=10;
-        }
-        if (IsKeyDown(KEY_RIGHT))
-        {
-            x+=10;
-        }
+    spaceship spaceship;
+    while (!WindowShouldClose()){
 
 
         BeginDrawing();
         ClearBackground(WHITE);
-        DrawCircle(x, y, 50, RED);
+        spaceship.draw();
         EndDrawing();
     }
     CloseWindow();
