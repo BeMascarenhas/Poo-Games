@@ -13,7 +13,6 @@ int main()
     Color grey = {29,29,27,255};
     InicialScreen inicialscreen;
     Game game;
-    Obstacle obstacle({100,100});
     
    
     while (!WindowShouldClose()){
@@ -44,7 +43,6 @@ int main()
             case Gameplay:
             {
                 game.Draw();
-                obstacle.Draw();
             }break;
             default: break;
         }
