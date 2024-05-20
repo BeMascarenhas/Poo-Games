@@ -2,6 +2,7 @@
 #include "game.hpp"
 #include "obstacle.hpp"
 #include "inicialScreen.hpp"
+
 typedef enum GameScreen { Inicial, Gameplay } GameScreen;
 int main()
 {
@@ -13,6 +14,7 @@ int main()
     Color grey = {29,29,27,255};
     InicialScreen inicialscreen;
     Game game;
+    
     
    
     while (!WindowShouldClose()){
@@ -43,6 +45,8 @@ int main()
             case Gameplay:
             {
                 game.Draw();
+    
+                
             }break;
             default: break;
         }
