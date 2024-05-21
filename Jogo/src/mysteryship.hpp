@@ -9,6 +9,7 @@ class MysteryShip{
         void Update();
         void Draw();
         void Spawn();
+        Rectangle getRect();
         bool alive;
 
     private:

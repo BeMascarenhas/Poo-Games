@@ -26,6 +26,11 @@ void Alien::UnloadImages()
     }
 }
 
+Rectangle Alien::getRect()
+{
+    return {position.x, position.y, (float)alienImages[type].width, (float)alienImages[type].height};
+}
+
 Alien1::Alien1(Vector2 position): Alien(position)
 {
     type = 0;

@@ -11,6 +11,7 @@ class Game{
         void Draw();
         void Update();
         void HandleInput();
+        void CheckCollisions();
 
     private:
         void DeleteInactiveLasers();

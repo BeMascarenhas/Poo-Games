@@ -9,6 +9,7 @@ class Alien {
         void Update(int direction);
 
         static void UnloadImages();
+        Rectangle getRect();
         static Texture2D alienImages[5];
         int type;
         Vector2 position;
