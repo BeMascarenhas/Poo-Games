@@ -9,16 +9,29 @@ Game::Game()
     aliens = CreateAliens();
     alienDirection = 1;
     timeLastAlienShoot =0;
+    timeLastSpawn =0.0;
+    mysteryShipSpawnInterval = GetRandomValue(10, 20);
+    
 
 }
 
 Game::~Game()
 {
     Alien::UnloadImages();
+
 }
 
 void Game::Update()
 {
+    double currentTime = GetTime();
+    if(currentTime - timeLastSpawn > mysteryShipSpawnInterval)
+    {
+        mysteryShip.Spawn();
+        timeLastSpawn = currentTime;
+        mysteryShipSpawnInterval = GetRandomValue(10, 20);
+    }
+
+
     for (auto& laser: spaceship.lasers)
     {
         laser.Update();
@@ -34,6 +47,7 @@ void Game::Update()
     }
 
      DeleteInactiveLasers();
+     mysteryShip.Update();
 }
 void Game::Draw()
 {
@@ -55,6 +69,7 @@ void Game::Draw()
     {
         laser.Draw();
     }
+    mysteryShip.Draw();
    
 }
 
@@ -86,6 +101,16 @@ void Game::DeleteInactiveLasers()
             it++;
         }
     }
+    for(auto it = alienlasers.begin(); it != alienlasers.end();)
+    {
+        if(!it->active)
+        {
+            it = alienlasers.erase(it);
+        }else
+        {
+            it++;
+        }
+    }
 }
 
 vector<Obstacle> Game::CreateObstacles()
@@ -111,10 +136,18 @@ vector<Alien> Game::CreateAliens()
                 Vector2 position = {float(j*55)+75, float(i*55)+110};
                 aliens.push_back(Alien3(position));
                 continue;
-            }else if (i == 1 || i == 2)
+            }else if (i == 1)
             {
                 Vector2 position = {float(j*55)+75, float(i*55)+110};
                 aliens.push_back(Alien2(position));
+                continue;
+            }else if(i == 2){
+                Vector2 position = {float(j*55)+75, float(i*55)+110};
+                aliens.push_back(Alien4(position));
+                continue;
+            }else if(i == 3){
+                Vector2 position = {float(j*55)+75, float(i*55)+110};
+                aliens.push_back(Alien5(position));
                 continue;
             }else{
             Vector2 position = {float(j*55)+75, float(i*55)+110};

@@ -1,6 +1,6 @@
 #include "alien.hpp"
 
-Texture2D Alien::alienImages[3] = {};
+Texture2D Alien::alienImages[5] = {};
 
 Alien::Alien(Vector2 position)
 {
@@ -20,7 +20,7 @@ void Alien::Update(int direction)
 
 void Alien::UnloadImages()
 {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 6; i++)
     {
         UnloadTexture(alienImages[i]);
     }
@@ -47,10 +47,6 @@ Alien2::Alien2(Vector2 position): Alien(position)
     this->position = position;
 }
     
-    
-
-
-
 
 Alien3::Alien3(Vector2 position): Alien(position)
 {
@@ -59,6 +55,24 @@ Alien3::Alien3(Vector2 position): Alien(position)
     if (alienImages[type].id == 0)
     {
         alienImages[type] = LoadTexture("Graphics/alien_3.png");
+    }
+}
+Alien4::Alien4(Vector2 position): Alien(position)
+{
+    this->position = position;
+    type = 3;
+    if (alienImages[type].id == 0)
+    {
+        alienImages[type] = LoadTexture("Graphics/alien_6.png");
+    }
+}
+Alien5::Alien5(Vector2 position): Alien(position)
+{
+    this->position = position;
+    type = 4;
+    if (alienImages[type].id == 0)
+    {
+        alienImages[type] = LoadTexture("Graphics/alien_5.png");
     }
 }
 

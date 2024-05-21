@@ -11,3 +11,4 @@ class InicialScreen{
         Texture2D image;
         Vector2 position;
 };
+

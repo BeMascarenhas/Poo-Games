@@ -2,6 +2,7 @@
 #include "spaceship.hpp"
 #include "obstacle.hpp"
 #include "alien.hpp"
+#include "mysteryship.hpp"
 using namespace std;
 class Game{
     public:
@@ -24,6 +25,10 @@ class Game{
         int alienDirection;
         vector<Laser> alienlasers;
         constexpr static float alienShootCooldown = 0.35;
-        float timeLastAlienShoot ;
+        float timeLastAlienShoot;
+        MysteryShip mysteryShip;
+        float mysteryShipSpawnInterval;
+        float timeLastSpawn;
+
         
 };

@@ -36,11 +36,14 @@ int main()
         
         BeginDrawing();
         ClearBackground(grey);
+        
         switch (currentScreen)
         {
             case Inicial:
-            {
+            {   
+                
                 inicialscreen.Draw();
+             
             }break;
             case Gameplay:
             {
