@@ -5,7 +5,7 @@ Spaceship::Spaceship()
 {
     image = LoadTexture("Graphics/Portugol.png");
     position.x = (GetScreenWidth() - image.width)/2;
-    position.y = GetScreenHeight() - image.height - 100;
+    position.y = GetScreenHeight() - image.height - 90;
     lastFireTime = 0.0;
 
 
