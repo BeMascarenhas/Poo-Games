@@ -2,7 +2,7 @@
 
 Texture2D Alien::alienImages[5] = {};
 
-Alien::Alien(Vector2 position)
+Alien::Alien(Vector2 position): GameObject(position)
 {
     this->position = position;
  

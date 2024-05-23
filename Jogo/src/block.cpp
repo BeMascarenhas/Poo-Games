@@ -1,6 +1,6 @@
 #include "block.hpp"
 
-Block::Block(Vector2 position)
+Block::Block(Vector2 position):GameObject(position)
 {
     this -> position = position;
 }

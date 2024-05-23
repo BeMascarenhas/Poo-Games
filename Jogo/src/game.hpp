@@ -12,6 +12,7 @@ class Game{
         void Update();
         void HandleInput();
         void CheckCollisions();
+        bool running;
 
     private:
         void DeleteInactiveLasers();
@@ -20,6 +21,9 @@ class Game{
         void MoveAliens();
         void MoveDownAliens(int distance);
         void AlienShootlaser();
+        void GameOver();
+        void Reset();
+        void InitGame();
         Spaceship spaceship;
         vector<Obstacle> obstacles;
         vector<Alien> aliens;
@@ -30,6 +34,7 @@ class Game{
         MysteryShip mysteryShip;
         float mysteryShipSpawnInterval;
         float timeLastSpawn;
+        int lives;
 
         
 };

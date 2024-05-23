@@ -1,7 +1,7 @@
 #pragma once
 #include <raylib.h>
-
-class Block{
+#include "gameobject.hpp"
+class Block:public GameObject{
     public:
         Block(Vector2 position);
         void Draw();

@@ -13,6 +13,7 @@ class Spaceship{
         void MoveRight();
         void FireLaser();
         Rectangle getRect();
+        void Reset();
         vector<Laser> lasers;
 
     private:

@@ -7,11 +7,12 @@ typedef enum GameScreen { Inicial, Gameplay } GameScreen;
 int main()
 {
   
-   InitWindow(750, 700, "Space Invaders para poo");
+   InitWindow(800, 800, "Space Invaders para poo");
    GameScreen currentScreen = Inicial;
    SetTargetFPS(60);
 
     Color grey = {29,29,27,255};
+    Color yellow = {243,216,63,255};
     InicialScreen inicialscreen;
     Game game;
     
@@ -37,6 +38,7 @@ int main()
         BeginDrawing();
         ClearBackground(grey);
         
+        
         switch (currentScreen)
         {
             case Inicial:
@@ -47,7 +49,9 @@ int main()
             }break;
             case Gameplay:
             {
+                DrawRectangleRoundedLines({10, 10,780,780}, 0.18f,20,2, yellow);
                 game.Draw();
+
     
                 
             }break;

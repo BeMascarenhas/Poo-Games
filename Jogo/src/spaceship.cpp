@@ -5,7 +5,7 @@ Spaceship::Spaceship()
 {
     image = LoadTexture("Graphics/Portugol.png");
     position.x = (GetScreenWidth() - image.width)/2;
-    position.y = GetScreenHeight() - image.height;
+    position.y = GetScreenHeight() - image.height - 100;
     lastFireTime = 0.0;
 
 
@@ -44,4 +44,11 @@ void Spaceship::FireLaser() {
 Rectangle Spaceship::getRect()
 {
     return {position.x, position.y, (float)image.width, (float)image.height};
+}
+
+void Spaceship::Reset()
+{
+    position.x = (GetScreenWidth() - image.width)/2;
+    position.y = GetScreenHeight() - image.height-100;
+    lasers.clear();
 }

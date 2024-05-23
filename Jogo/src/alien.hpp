@@ -1,8 +1,8 @@
 #pragma once
 
 #include <raylib.h>
-
-class Alien {
+#include "gameobject.hpp"
+class Alien :public GameObject{
     public:
         Alien( Vector2 position);
         void Draw();

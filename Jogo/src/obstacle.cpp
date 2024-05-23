@@ -15,7 +15,7 @@ vector<vector<int>> Obstacle:: grid = {
     {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1}
     };
-Obstacle::Obstacle(Vector2 position)
+Obstacle::Obstacle(Vector2 position):GameObject(position)
 {
     this -> position = position;  
 

@@ -1,10 +1,11 @@
 #pragma once
 #include <vector>
 #include "block.hpp"
+#include "GameObject.hpp"
 
 using namespace std;
 
-class Obstacle{
+class Obstacle:public GameObject{
     public:
         Obstacle(Vector2 position);
         void Draw();

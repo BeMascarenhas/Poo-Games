@@ -1,7 +1,7 @@
 #pragma once
 #include <raylib.h>
-
-class Laser {
+#include "gameobject.hpp"
+class Laser: public GameObject{
     public:
         Laser(Vector2 position, int speed);
         void Update();
