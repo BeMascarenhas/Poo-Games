@@ -14,6 +14,9 @@ class Game{
         void CheckCollisions();
         bool running;
         int lives;
+        int score;
+        int highscore;
+        Music music;
 
     private:
         void DeleteInactiveLasers();
@@ -25,6 +28,9 @@ class Game{
         void GameOver();
         void Reset();
         void InitGame();
+        void checkHighScore();
+        void saveHighScore(int highscore);
+        int loadHighScore();
         Spaceship spaceship;
         vector<Obstacle> obstacles;
         vector<Alien> aliens;
@@ -35,7 +41,7 @@ class Game{
         MysteryShip mysteryShip;
         float mysteryShipSpawnInterval;
         float timeLastSpawn;
-        
+        Sound explosionSound;
 
         
 };
