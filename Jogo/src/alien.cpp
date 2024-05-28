@@ -2,10 +2,33 @@
 
 Texture2D Alien::alienImages[5] = {};
 
-Alien::Alien(Vector2 position): GameObject(position)
+Alien::Alien(int type,Vector2 position): GameObject(position)
 {
     this->position = position;
- 
+    this->type = type;
+     if(alienImages[type].id == 0){
+
+    switch (type) {
+        case 0:
+            alienImages[0] = LoadTexture("Graphics/alien_1.png");
+            break;
+        case 1:
+            alienImages[1] = LoadTexture("Graphics/alien_2.png");
+            break;
+        case 2: 
+            alienImages[2] = LoadTexture("Graphics/alien_3.png");
+            break;
+        case 3:
+            alienImages[3] = LoadTexture("Graphics/alien_5.png");
+            break;
+        case 4:
+            alienImages[4] = LoadTexture("Graphics/alien_6.png");
+            break;  
+        default:
+            alienImages[0] = LoadTexture("Graphics/alien_1.png");
+            break;
+    }
+}
 }
 void Alien::Draw()
 {
@@ -16,6 +39,11 @@ void Alien::Update(int direction)
 {
     position.x += direction;
 
+}
+
+int Alien::getType()
+{
+    return type;
 }
 
 void Alien::UnloadImages()
@@ -29,55 +57,5 @@ void Alien::UnloadImages()
 Rectangle Alien::getRect()
 {
     return {position.x, position.y, (float)alienImages[type].width, (float)alienImages[type].height};
-}
-
-Alien1::Alien1(Vector2 position): Alien(position)
-{
-    type = 0;
-    if (alienImages[type].id == 0)
-    {
-        alienImages[type] = LoadTexture("Graphics/alien_1.png");
-    }
-    this->position = position;
-    
-}
-
-Alien2::Alien2(Vector2 position): Alien(position)
-{
-    type = 1;
-    if (alienImages[type].id == 0)
-    {
-        alienImages[type] = LoadTexture("Graphics/alien_2.png");
-    }
-    this->position = position;
-}
-    
-
-Alien3::Alien3(Vector2 position): Alien(position)
-{
-    this->position = position;
-    type = 2;
-    if (alienImages[type].id == 0)
-    {
-        alienImages[type] = LoadTexture("Graphics/alien_3.png");
-    }
-}
-Alien4::Alien4(Vector2 position): Alien(position)
-{
-    this->position = position;
-    type = 3;
-    if (alienImages[type].id == 0)
-    {
-        alienImages[type] = LoadTexture("Graphics/alien_6.png");
-    }
-}
-Alien5::Alien5(Vector2 position): Alien(position)
-{
-    this->position = position;
-    type = 4;
-    if (alienImages[type].id == 0)
-    {
-        alienImages[type] = LoadTexture("Graphics/alien_5.png");
-    }
 }
 

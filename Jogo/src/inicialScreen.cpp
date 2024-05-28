@@ -4,7 +4,7 @@
 InicialScreen::InicialScreen()
 {
     flag = false;
-    image = LoadTexture("Graphics/startButton.png");
+    //image = LoadTexture("Graphics/startButton.png");
 }
 
 InicialScreen::~InicialScreen()
@@ -17,8 +17,8 @@ void InicialScreen::Draw()
 {
     BeginDrawing();
     ClearBackground({29,29,27,255});
-    DrawText("Press Enter", 200, 200, 20, WHITE);
-    DrawTexture(image, 335, 350, WHITE);
+    DrawText("Press Enter To Start", 200, 200, 20, WHITE);
+    //DrawTexture(image, 335, 350, WHITE);
 
 
     

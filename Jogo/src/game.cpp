@@ -109,7 +109,7 @@ void Game::CheckCollisions()
        auto it = aliens.begin();
          while(it != aliens.end())
          {
-              cout<<aliens.size()<<endl;
+              //cout<<aliens.size()<<endl;
               
               if(CheckCollisionRecs(it->getRect(),laser.getRect()))
               {
@@ -257,28 +257,22 @@ vector<Alien> Game::CreateAliens()
     vector<Alien> aliens;
     for(int i = 0; i<5;i++){
         for(int j = 0; j<11; j++){
-            if(i == 0)
-            {
-                Vector2 position = {float(j*55)+75, float(i*55)+110};
-                aliens.push_back(Alien3(position));
-                continue;
-            }else if (i == 1)
-            {
-                Vector2 position = {float(j*55)+75, float(i*55)+110};
-                aliens.push_back(Alien2(position));
-                continue;
-            }else if(i == 2){
-                Vector2 position = {float(j*55)+75, float(i*55)+110};
-                aliens.push_back(Alien4(position));
-                continue;
-            }else if(i == 3){
-                Vector2 position = {float(j*55)+75, float(i*55)+110};
-                aliens.push_back(Alien5(position));
-                continue;
-            }else{
-            Vector2 position = {float(j*55)+75, float(i*55)+110};
-            aliens.push_back(Alien1(position));
-        }
+            int alienType;
+            if(i == 0) {
+                alienType = 0;
+            } else if (i == 1) {
+                alienType = 1;
+            } else if (i == 2) {
+                alienType = 2;
+            }else if (i == 3) {
+                alienType = 3;
+            }else if (i == 4) {
+                alienType = 4;
+            }
+
+            float x = 75 + j * 55;
+            float y = 110 + i * 55;
+            aliens.push_back(Alien(alienType, {x, y}));
         }
     }
     return aliens;
