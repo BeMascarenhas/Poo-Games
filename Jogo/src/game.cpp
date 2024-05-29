@@ -10,7 +10,6 @@ Game::Game()
     explosionSound = LoadSound("Sounds/explosion.ogg");
     PlayMusicStream(music);
     InitGame();
-    
 
 }
 
@@ -25,6 +24,23 @@ Game::~Game()
 void Game::Update()
 {
     if(running){
+        if(boss.alive){
+            boss.bossMove();
+            for (auto& laser: spaceship.lasers)
+            {
+            laser.Update();
+            }
+            for (auto& laser: bossLasers)
+            {
+                laser.Update();
+            }
+            DeleteInactiveLasers();
+            CheckCollisions();
+            BossShootLaser();
+
+        }else{
+            UpdateMusicStream(music);
+        
         double currentTime = GetTime();
         if(currentTime - timeLastSpawn > mysteryShipSpawnInterval)
         {
@@ -44,24 +60,26 @@ void Game::Update()
 
         AlienShootlaser();
 
-        for (auto& laser: alienlasers){
+        for (auto& laser: alienlasers)
+        {
             laser.Update();
         }
 
         DeleteInactiveLasers();
         mysteryShip.Update();
         CheckCollisions();
+    }
     }else{
         if(IsKeyDown(KEY_ENTER))
         {
            Reset();
            InitGame();
-    
         }
     }
 }
 void Game::Draw()
 {
+    
     spaceship.Draw();
 
     for (auto& laser: spaceship.lasers)
@@ -81,7 +99,11 @@ void Game::Draw()
         laser.Draw();
     }
     mysteryShip.Draw();
-   
+    boss.Draw();
+    for(auto& laser: bossLasers)
+    {
+        laser.Draw();
+    }
 }
 
 void Game::HandleInput()
@@ -134,7 +156,8 @@ void Game::CheckCollisions()
               }
               if(aliens.size() == 0)
               {
-                  GameOver();
+                  Spawnboss();
+                  cout<<"mozilla foundation"<<endl;
               }
          }
          for(auto& obstacle: obstacles)
@@ -210,6 +233,7 @@ void Game::CheckCollisions()
         {
             //cout<<"Spaceship hit"<<endl;
             GameOver();
+            cout<<"olha so"<<endl;
         }
     }
 }
@@ -235,6 +259,18 @@ void Game::DeleteInactiveLasers()
         {
             it++;
         }
+    }
+    if(boss.alive){
+    for (auto it = bossLasers.begin(); it != bossLasers.end();)
+    {
+        if(!it->active)
+        {
+            it = bossLasers.erase(it);
+        }else
+        {
+            it++;
+        }
+    }
     }
 }
 
@@ -297,6 +333,8 @@ void Game::MoveAliens()
     }
 }
 
+
+
 void Game::MoveDownAliens(int distance)
 {
     for (auto& alien: aliens)
@@ -318,6 +356,31 @@ void Game::AlienShootlaser()
     }
 }
 
+void Game::BossShootLaser()
+{
+     double curretnTime = GetTime();
+    if(curretnTime - timeLastBossShoot >= bossShootCooldown && boss.alive)
+    {
+        bossLasers.push_back(Laser({boss.position.x + boss.bossImages[boss.type].width/2, boss.position.y + boss.bossImages[boss.type].height}, 6));
+        timeLastBossShoot = GetTime();
+    
+    }
+
+}
+
+
+void Game::Spawnboss()
+{
+     spaceship.lasers.clear();
+     obstacles.clear();
+     obstacles = CreateObstacles();
+     boss.position.x = 350;
+     boss.position.y = 350;
+     boss.alive = true;
+     boss.lives = 10;
+     alienlasers.clear();
+}
+
 void Game::GameOver()
 {
     cout<<"Game Over"<<endl;
@@ -335,17 +398,22 @@ void Game::Reset()
 
 void Game::InitGame()
 {
+    Boss b = Boss(0,{300,350});
     obstacles = CreateObstacles();
     aliens = CreateAliens();
     alienDirection = 1;
     timeLastAlienShoot =0;
     timeLastSpawn =0.0;
+    timeLastBossShoot = 0.0;
     mysteryShipSpawnInterval = GetRandomValue(10, 20);
     lives = 3;
     score = 0;
     highscore = loadHighScore();
     running = true;
+    bossAlive = false;
 }
+
+
 
 void Game::checkHighScore()
 {
