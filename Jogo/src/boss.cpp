@@ -2,7 +2,7 @@
 
 Texture2D Boss::bossImages[2] = {};   
 Boss::Boss(int type, Vector2 position): Alien(type, position)
-{
+{ 
     bossDirection = 2;
     this -> type = type;
     this -> position = position;
@@ -41,6 +41,11 @@ int Boss::getType()
     return this -> type;
 }
 
+Rectangle Boss::getRect()
+{
+    return {position.x, position.y, (float)bossImages[type].width, (float)bossImages[type].height};
+}
+
 void Boss::UnloadImages()
 {
     for (int i = 0; i < 2; i++)
@@ -59,4 +64,8 @@ void Boss::bossMove()
     }
 }
 
+Boss& Boss::operator--() {
+    --lives;
+    return *this;
+}
 

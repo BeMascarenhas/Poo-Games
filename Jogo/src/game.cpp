@@ -123,7 +123,10 @@ void Game::HandleInput()
     }
 
 }
-
+Game& Game::operator--() {
+    --lives;
+    return *this;
+}
 void Game::CheckCollisions()
 {
     for(auto& laser: spaceship.lasers)
@@ -192,7 +195,7 @@ void Game::CheckCollisions()
         {
             laser.active = false;
             //cout<<"Spaceship hit"<<endl;
-            lives--;
+            --(*this);
             if(lives == 0)
             {
                 GameOver();
@@ -233,8 +236,58 @@ void Game::CheckCollisions()
         {
             //cout<<"Spaceship hit"<<endl;
             GameOver();
-            cout<<"olha so"<<endl;
         }
+    }
+    if(boss.alive){
+    for(auto& laser: bossLasers)
+    {
+        if(CheckCollisionRecs(laser.getRect(),spaceship.getRect()))
+        {
+            laser.active = false;
+            //cout<<"Spaceship hit"<<endl;
+            --(*this);
+            if(lives == 0)
+            {
+                GameOver();
+            }
+        }
+        for(auto& obstacle: obstacles)
+        {
+            auto it = obstacle.blocks.begin();
+            while(it != obstacle.blocks.end())
+            {
+                if(CheckCollisionRecs(it->getRect(),laser.getRect()))
+                {
+                    it = obstacle.blocks.erase(it);
+                    laser.active = false;
+                }else
+                {
+                    it++;
+                }
+            }
+        }
+    }
+    if(CheckCollisionRecs(boss.getRect(),spaceship.getRect()))
+    {
+        cout<<"Boss hit"<<endl;
+        //GameOver();
+    }
+    for(auto& laser: spaceship.lasers)
+    {
+        if(CheckCollisionRecs(laser.getRect(),boss.getRect()))
+        {
+            --boss;
+            laser.active = false;
+            if(boss.lives == 0)
+            {
+                boss.alive = false;
+                score += 10000;
+                checkHighScore();
+                GameOver();
+                bossLasers.clear();
+            }
+        }
+    }
     }
 }
 
@@ -377,14 +430,18 @@ void Game::Spawnboss()
      boss.position.x = 350;
      boss.position.y = 350;
      boss.alive = true;
-     boss.lives = 10;
+     boss.lives = 1;
      alienlasers.clear();
 }
-
+ostream& operator<<(ostream& os, const Game& game) {
+    os << "Game Over! Your final score is: " << game.score;
+    return os;
+}
 void Game::GameOver()
 {
-    cout<<"Game Over"<<endl;
     running = false;
+    cout << *this << endl;
+    
    
 }
 
@@ -408,9 +465,10 @@ void Game::InitGame()
     mysteryShipSpawnInterval = GetRandomValue(10, 20);
     lives = 3;
     score = 0;
+    //bosslives = 1;
     highscore = loadHighScore();
     running = true;
-    bossAlive = false;
+    boss.alive = false;
 }
 
 

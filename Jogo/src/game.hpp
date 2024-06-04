@@ -4,6 +4,7 @@
 #include "alien.hpp"
 #include "mysteryship.hpp"
 #include "boss.hpp"
+#include <iostream>
 using namespace std;
 class Game{
     public:
@@ -15,9 +16,13 @@ class Game{
         void CheckCollisions();
         bool running;
         int lives;
+        //int bosslives;
         int score;
         int highscore;
         Music music;
+
+        friend ostream& operator<<(ostream& os, const Game& game);
+        Game& operator--();
 
     private:
         void DeleteInactiveLasers();
@@ -51,7 +56,7 @@ class Game{
         float mysteryShipSpawnInterval;
         float timeLastSpawn;
         Sound explosionSound;
-        bool bossAlive;
+        
 
         
 };

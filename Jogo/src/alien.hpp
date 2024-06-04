@@ -5,7 +5,7 @@
 class Alien :public GameObject{
     public:
         Alien( int type, Vector2 position);
-        void Draw();
+        virtual void Draw();
         void Update(int direction);
         int getType();
         static void UnloadImages();
