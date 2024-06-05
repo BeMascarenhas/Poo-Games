@@ -12,6 +12,9 @@ class MysteryShip{
         Rectangle getRect();
         bool alive;
 
+         MysteryShip& operator++();  
+         MysteryShip& operator--();
+
     private:
         Texture2D image;
         Vector2 position;

@@ -14,6 +14,8 @@ class Alien :public GameObject{
         int type;
         Vector2 position;
 
+   
+
     private:
 };
 

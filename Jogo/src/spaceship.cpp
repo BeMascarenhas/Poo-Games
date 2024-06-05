@@ -20,16 +20,24 @@ Spaceship::~Spaceship() {
 void Spaceship::Draw() {
     DrawTextureV(image, position, WHITE);
 }
+Spaceship& Spaceship::operator++() {
+    position.x += 7;
+    return *this;
+}
+Spaceship& Spaceship::operator--() {
+    position.x -= 7;
+    return *this;
+}
 
 void Spaceship::MoveLeft() {
-    position.x -= 7;
+    --(*this);
     if(position.x < 25) {
         position.x = 25;
     }
 }
 
 void Spaceship::MoveRight() {
-    position.x += 7;
+    ++(*this);
     if(position.x > GetScreenWidth() - image.width - 25) {
         position.x = GetScreenWidth() - image.width - 25;
         

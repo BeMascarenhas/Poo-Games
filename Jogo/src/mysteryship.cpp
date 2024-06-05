@@ -31,7 +31,14 @@ void MysteryShip::Draw()
         DrawTextureV(image, position, WHITE);
     }
 }
-
+MysteryShip& MysteryShip::operator++() {
+    speed = 3;
+    return *this;
+}
+MysteryShip& MysteryShip::operator--() {
+    speed = -3;
+    return *this;
+}
 void MysteryShip::Spawn()
 {
     position.y = 90;
@@ -39,11 +46,11 @@ void MysteryShip::Spawn()
     if(side == 0)
     {
         position.x = 25;
-        speed = 3;
+        ++(*this);
     }else
     {
         position.x = GetScreenWidth() - image.width - 25;
-        speed = -3;
+        --(*this);
     }
     alive = true;
 }

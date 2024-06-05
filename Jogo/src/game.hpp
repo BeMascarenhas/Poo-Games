@@ -23,6 +23,7 @@ class Game{
 
         friend ostream& operator<<(ostream& os, const Game& game);
         Game& operator--();
+        Game& operator++();
 
     private:
         void DeleteInactiveLasers();

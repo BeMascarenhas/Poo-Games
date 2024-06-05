@@ -127,6 +127,11 @@ Game& Game::operator--() {
     --lives;
     return *this;
 }
+Game &Game::operator++()
+{
+    lives = 3;
+    return *this;
+}
 void Game::CheckCollisions()
 {
     for(auto& laser: spaceship.lasers)
@@ -463,7 +468,7 @@ void Game::InitGame()
     timeLastSpawn =0.0;
     timeLastBossShoot = 0.0;
     mysteryShipSpawnInterval = GetRandomValue(10, 20);
-    lives = 3;
+    ++(*this);//lives = 3;
     score = 0;
     //bosslives = 1;
     highscore = loadHighScore();

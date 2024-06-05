@@ -16,6 +16,9 @@ class Spaceship{
         void Reset();
         vector<Laser> lasers;
 
+        Spaceship& operator++();  // Pré-incremento
+        Spaceship& operator--();  // Pré-decremento
+
     private:
         Texture2D image;
         Vector2 position;
