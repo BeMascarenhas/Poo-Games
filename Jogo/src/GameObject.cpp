@@ -9,7 +9,4 @@ GameObject::~GameObject()
 {
 }
 
-Vector2 GameObject::getPosition()
-{
-    return this -> position;
-}
+

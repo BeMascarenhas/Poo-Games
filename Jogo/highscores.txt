@@ -8,3 +8,6 @@ pedro: 500
 oi: 0
 oi: 0
 ryan: 4000
+gui: 8900
+dura: 0
+joao: 0

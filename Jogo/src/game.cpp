@@ -3,6 +3,8 @@
 #include<iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+
 using namespace std;
 
 Game::Game()
@@ -471,25 +473,49 @@ void Game::Spawnboss()
      alienlasers.clear();
 }
 ostream& operator<<(ostream& os, const Game& game) {
+    int yPosition = 100;  // Posição inicial vertical para desenhar as pontuações
+    DrawText("Game Over! High Scores:", 100, yPosition, 20, RED);
+    yPosition += 30;  // Move para a próxima linha
 
-    
-    
-        int yPosition = 100;  // Posição inicial vertical para desenhar as pontuações
-        DrawText("Game Over! High Scores:", 100, yPosition, 20, RED);
-        yPosition += 30;  // Move para a próxima linha
-            ifstream inputFile("highscores.txt");
-            if (inputFile.is_open())
-    {
-            string line;
-            while (getline(inputFile, line))
-            {
-                
-                DrawText(line.c_str(), 100, yPosition, 20, WHITE);
-                yPosition += 30;  // Move para a próxima linha
+    std::ifstream inputFile("highscores.txt");
+    if (inputFile.is_open()) {
+        std::vector<std::pair<std::string, int>> scores;
+        std::string line;
+
+        // Ler as linhas do arquivo e armazenar no vetor de pares
+        while (std::getline(inputFile, line)) {
+            size_t delimiterPos = line.find(":");
+            if (delimiterPos != std::string::npos) {
+                std::string name = line.substr(0, delimiterPos);
+                std::string scoreStr = line.substr(delimiterPos + 1);
+
+                try {
+                    int score = std::stoi(scoreStr);
+                    scores.push_back(std::make_pair(name, score));
+                } catch (const std::invalid_argument& e) {
+                    std::cerr << "Invalid score format for line: " << line << std::endl;
+                } catch (const std::out_of_range& e) {
+                    std::cerr << "Score out of range for line: " << line << std::endl;
+                }
             }
-
+        }
         inputFile.close();
+
+        // Ordenar o vetor em ordem decrescente de pontuação
+        std::sort(scores.begin(), scores.end(), [](const auto& a, const auto& b) {
+            return a.second > b.second;
+        });
+
+        // Desenhar as pontuações ordenadas na tela
+        for (const auto& score : scores) {
+            std::string displayText = score.first + ": " + std::to_string(score.second);
+            DrawText(displayText.c_str(), 100, yPosition, 20, WHITE);
+            yPosition += 30;  // Move para a próxima linha
+        }
+    } else {
+        std::cerr << "Unable to open file" << std::endl;
     }
+
     return os;
 }
 void Game::GameOver()
