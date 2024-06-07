@@ -1,6 +1,6 @@
 #include "boss.hpp"
 
-Texture2D Boss::bossImages[2] = {};   
+Texture2D Boss::bossImages[1] = {};   
 Boss::Boss(int type, Vector2 position): Alien(type, position)
 { 
     bossDirection = 2;
@@ -13,9 +13,6 @@ Boss::Boss(int type, Vector2 position): Alien(type, position)
     switch (type) {
         case 0:
             bossImages[0] = LoadTexture("Graphics/Boss.png");
-            break;
-        case 1:
-            bossImages[1] = LoadTexture("Graphics/alien_2.png");
             break;
         default:
             bossImages[0] = LoadTexture("Graphics/Boss.png");
@@ -48,10 +45,8 @@ Rectangle Boss::getRect()
 
 void Boss::UnloadImages()
 {
-    for (int i = 0; i < 2; i++)
-    {
-        UnloadTexture(bossImages[i]);
-    }
+  UnloadTexture(bossImages[0]);
+    
 }
 
 void Boss::bossMove()

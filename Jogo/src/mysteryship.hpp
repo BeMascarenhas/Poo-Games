@@ -1,24 +1,26 @@
 #pragma once
-
+#include "alien.hpp"
 #include <raylib.h>
 
-class MysteryShip{
+class MysteryShip:public Alien{
     public:
-        MysteryShip();
+        MysteryShip(int type, Vector2 position);
         ~MysteryShip();
         void Update();
         void Draw();
         void Spawn();
         Rectangle getRect();
+        static Texture2D mysteryImages[2];
+        Vector2 position;
+        int speed;
         bool alive;
 
          MysteryShip& operator++();  
          MysteryShip& operator--();
 
     private:
-        Texture2D image;
-        Vector2 position;
-        int speed;
+        
+       
 
 
 };

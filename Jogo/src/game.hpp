@@ -4,6 +4,7 @@
 #include "alien.hpp"
 #include "mysteryship.hpp"
 #include "boss.hpp"
+#include "inicialScreen.hpp"
 #include <iostream>
 using namespace std;
 class Game{
@@ -39,7 +40,8 @@ class Game{
         void Reset();
         void InitGame();
         void checkHighScore();
-        void saveHighScore(int highscore);
+        void saveHighScore(int highscore,const string& name);
+        void saveHighScores(int highscore,const string& name);
         int loadHighScore();
         Spaceship spaceship;
         vector<Obstacle> obstacles;
@@ -52,7 +54,9 @@ class Game{
         constexpr static float bossShootCooldown = 0.25;
         float timeLastAlienShoot;
         float timeLastBossShoot;
-        MysteryShip mysteryShip;
+        MysteryShip mystery = MysteryShip(0,{300,350});
+        MysteryShip heart = MysteryShip(1,{300,350});
+        double timeMysteryCollision;
         Boss boss = Boss(0,{300,350});
         float mysteryShipSpawnInterval;
         float timeLastSpawn;

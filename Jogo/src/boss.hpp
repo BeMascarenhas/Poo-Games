@@ -11,8 +11,8 @@ class Boss:public Alien{
         int getType();
         Rectangle getRect();
         bool alive = false;
-        static Texture2D bossImages[2];
-        static void UnloadImages();
+        static Texture2D bossImages[1];
+        void UnloadImages();
         Vector2 position;
         void bossMove();
         int bossDirection;

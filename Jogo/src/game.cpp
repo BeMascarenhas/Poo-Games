@@ -2,7 +2,8 @@
 #include "game.hpp"
 #include<iostream>
 #include <fstream>
- using namespace std;
+#include <sstream>
+using namespace std;
 
 Game::Game()
 {
@@ -15,6 +16,7 @@ Game::Game()
 
 Game::~Game()
 {
+   
     Alien::UnloadImages();
     UnloadMusicStream(music);
     UnloadSound(explosionSound);
@@ -44,9 +46,14 @@ void Game::Update()
         double currentTime = GetTime();
         if(currentTime - timeLastSpawn > mysteryShipSpawnInterval)
         {
-            mysteryShip.Spawn();
+            if(GetRandomValue(0,1) == 0)
+            {
+                heart.Spawn();
+            }else{
+                mystery.Spawn();
+            }
             timeLastSpawn = currentTime;
-            mysteryShipSpawnInterval = GetRandomValue(10, 20);
+            mysteryShipSpawnInterval = GetRandomValue(7, 15);
         }
 
 
@@ -55,7 +62,9 @@ void Game::Update()
             laser.Update();
         }
 
-
+        if (GetTime() - timeMysteryCollision >= 4.0) {
+        spaceship.fireRate = 0.35; // Volte ao fireRate padrão após 2 segundos
+        }
         MoveAliens();
 
         AlienShootlaser();
@@ -66,7 +75,8 @@ void Game::Update()
         }
 
         DeleteInactiveLasers();
-        mysteryShip.Update();
+        mystery.Update();
+        heart.Update();
         CheckCollisions();
     }
     }else{
@@ -98,12 +108,24 @@ void Game::Draw()
     {
         laser.Draw();
     }
-    mysteryShip.Draw();
+   
+    mystery.Draw();
+    heart.Draw();
     boss.Draw();
     for(auto& laser: bossLasers)
     {
         laser.Draw();
     }
+    
+    if(running == false)
+    {
+        spaceship.Reset();
+        aliens.clear();
+        alienlasers.clear();
+        obstacles.clear();
+        cout << *this << endl;
+    }
+    
 }
 
 void Game::HandleInput()
@@ -118,7 +140,7 @@ void Game::HandleInput()
         } else if (IsKeyDown(KEY_SPACE))
         {
             spaceship.FireLaser();
-            //cout<<"Laser Fired"<<endl;
+           
         }
     }
 
@@ -139,7 +161,7 @@ void Game::CheckCollisions()
        auto it = aliens.begin();
          while(it != aliens.end())
          {
-              //cout<<aliens.size()<<endl;
+             
               
               if(CheckCollisionRecs(it->getRect(),laser.getRect()))
               {
@@ -155,7 +177,7 @@ void Game::CheckCollisions()
                 }else if(it->type == 4){
                     score+=500;
                 }
-                checkHighScore();
+                //checkHighScore();
                 it = aliens.erase(it);
                 laser.active = false;
               }else
@@ -184,12 +206,21 @@ void Game::CheckCollisions()
             }
          }
         
-         if(CheckCollisionRecs(mysteryShip.getRect(),laser.getRect()))
+         if(CheckCollisionRecs(mystery.getRect(),laser.getRect()))
          {
-             mysteryShip.alive = false;
+             timeMysteryCollision = 0.0;
+             mystery.alive = false;
              laser.active = false;
-             score += 1000;
-             checkHighScore();
+             spaceship.fireRate = 0.1;
+             timeMysteryCollision = GetTime();
+             //checkHighScore();
+             PlaySound(explosionSound);
+         }
+         if(CheckCollisionRecs(heart.getRect(),laser.getRect()))
+         {
+             heart.alive = false;
+             laser.active = false;
+             lives++;
              PlaySound(explosionSound);
          }
         
@@ -199,10 +230,11 @@ void Game::CheckCollisions()
         if(CheckCollisionRecs(laser.getRect(),spaceship.getRect()))
         {
             laser.active = false;
-            //cout<<"Spaceship hit"<<endl;
+          
             --(*this);
             if(lives == 0)
             {
+
                 GameOver();
             }
         }
@@ -239,7 +271,7 @@ void Game::CheckCollisions()
         }
         if(CheckCollisionRecs(alien.getRect(),spaceship.getRect()))
         {
-            //cout<<"Spaceship hit"<<endl;
+           
             GameOver();
         }
     }
@@ -249,7 +281,7 @@ void Game::CheckCollisions()
         if(CheckCollisionRecs(laser.getRect(),spaceship.getRect()))
         {
             laser.active = false;
-            //cout<<"Spaceship hit"<<endl;
+            
             --(*this);
             if(lives == 0)
             {
@@ -439,13 +471,34 @@ void Game::Spawnboss()
      alienlasers.clear();
 }
 ostream& operator<<(ostream& os, const Game& game) {
-    os << "Game Over! Your final score is: " << game.score;
+
+    
+    
+        int yPosition = 100;  // Posição inicial vertical para desenhar as pontuações
+        DrawText("Game Over! High Scores:", 100, yPosition, 20, RED);
+        yPosition += 30;  // Move para a próxima linha
+            ifstream inputFile("highscores.txt");
+            if (inputFile.is_open())
+    {
+            string line;
+            while (getline(inputFile, line))
+            {
+                
+                DrawText(line.c_str(), 100, yPosition, 20, WHITE);
+                yPosition += 30;  // Move para a próxima linha
+            }
+
+        inputFile.close();
+    }
     return os;
 }
 void Game::GameOver()
 {
+    
+    checkHighScore();
     running = false;
-    cout << *this << endl;
+    
+    
     
    
 }
@@ -467,48 +520,65 @@ void Game::InitGame()
     timeLastAlienShoot =0;
     timeLastSpawn =0.0;
     timeLastBossShoot = 0.0;
-    mysteryShipSpawnInterval = GetRandomValue(10, 20);
+    mysteryShipSpawnInterval = GetRandomValue(7,15);
     ++(*this);//lives = 3;
     score = 0;
     //bosslives = 1;
     highscore = loadHighScore();
     running = true;
     boss.alive = false;
+    
 }
 
 
 
 void Game::checkHighScore()
-{
-    if(score > highscore)
-    {
+{   
+    saveHighScores(score, InicialScreen::name);
+    if (score > highscore) {
         highscore = score;
-        saveHighScore(highscore);
+        saveHighScore(highscore, InicialScreen::name);
     }
 }
 
-void Game::saveHighScore(int highscore)
+void Game::saveHighScore(int highscore, const string& name)
 {
     ofstream highScoreFile("highscore.txt");
-    if(highScoreFile.is_open())
-    {
-        highScoreFile<<highscore;
+    if (highScoreFile.is_open()) {
+        highScoreFile << highscore << std::endl;
         highScoreFile.close();
-    }else{
-        cerr<<"Unable to open file"<<endl;
+    } else {
+        cerr << "Unable to open file" << endl;
     }
 }
+
+void Game::saveHighScores(int highscore, const string &name)
+{
+    ofstream highScoresFile("highscores.txt", ios::app);
+    if (highScoresFile.is_open()) {
+        highScoresFile << name << ": " << highscore << std::endl;
+        highScoresFile.close();
+    } else {
+        cerr << "Unable to open file" << endl;
+    }
+}
+
+
 
 int Game::loadHighScore()
 {
-    int loadedHighScore = 0;
     ifstream highScoreFile("highscore.txt");
-    if(highScoreFile.is_open())
-    {
-        highScoreFile>>loadedHighScore;
+    if (highScoreFile.is_open()) {
+        int score;
+        if (highScoreFile >> score) {
+            highScoreFile.close();
+            return score;
+        }
         highScoreFile.close();
-    }else{
-        cerr<<"Unable to open file"<<endl;
+    } else {
+        cerr << "Unable to open file" << endl;
     }
-    return loadedHighScore;
+    return 0; // Retorna 0 se não conseguir ler o arquivo
 }
+
+

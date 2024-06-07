@@ -15,7 +15,7 @@ class Spaceship{
         Rectangle getRect();
         void Reset();
         vector<Laser> lasers;
-
+        float fireRate;
         Spaceship& operator++();  // Pré-incremento
         Spaceship& operator--();  // Pré-decremento
 

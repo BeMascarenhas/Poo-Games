@@ -31,6 +31,7 @@ int main()
         switch (currentScreen)
         {case Inicial:
             {
+                inicialscreen.nameinput();
                 if (IsKeyPressed(KEY_ENTER))
                 {
                     currentScreen = Gameplay;
@@ -54,6 +55,7 @@ int main()
             {   
                 
                 inicialscreen.Draw();
+                
              
             }break;
             case Gameplay:
@@ -86,6 +88,7 @@ int main()
         }
         EndDrawing();
     }
+    inicialscreen.~InicialScreen();
     CloseWindow();
     CloseAudioDevice();
     return 0;

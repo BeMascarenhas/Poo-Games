@@ -8,7 +8,7 @@ Spaceship::Spaceship()
     position.y = GetScreenHeight() - image.height - 90;
     lastFireTime = 0.0;
     laserSound = LoadSound("Sounds/laser.ogg");
-
+    fireRate = 0.35;
 
 }
 
@@ -45,7 +45,7 @@ void Spaceship::MoveRight() {
 }
 
 void Spaceship::FireLaser() {
-    if(GetTime() - lastFireTime >= 0.35) {
+    if(GetTime() - lastFireTime >= fireRate) {
        
    lasers.push_back(Laser({position.x + image.width/2 -2 , position.y},-6));
    lastFireTime = GetTime();
