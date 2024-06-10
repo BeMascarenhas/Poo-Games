@@ -1,8 +1,7 @@
 #include "boss.hpp"
-
-Texture2D Boss::bossImages[1] = {};   
 Boss::Boss(int type, Vector2 position): Alien(type, position)
 { 
+    bossImages[1] = {};  
     bossDirection = 2;
     this -> type = type;
     this -> position = position;

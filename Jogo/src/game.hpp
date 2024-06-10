@@ -17,21 +17,19 @@ class Game{
         void CheckCollisions();
         bool running;
         int lives;
-        //int bosslives;
         int score;
         int highscore;
         Music music;
-
-        friend ostream& operator<<(ostream& os, const Game& game);
+        friend ostream& operator<<(ostream& os, const Game& game);//sobrecarga do operador de insercao para a lista de jogadores, o uso do friend se da pra q a sobrecarga podesse ser feita dentro na clasee
         Game& operator--();
         Game& operator++();
 
     private:
+    //funcoes privadas e atributos privados que nao precisam ser acessados fora da classe
         void DeleteInactiveLasers();
         vector<Obstacle> CreateObstacles(); 
         vector<Alien> CreateAliens();
         void MoveAliens();
-        //void bossMove();
         void MoveDownAliens(int distance);
         void AlienShootlaser();
         void BossShootLaser();

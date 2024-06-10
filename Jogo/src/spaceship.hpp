@@ -16,11 +16,12 @@ class Spaceship{
         void Reset();
         vector<Laser> lasers;
         float fireRate;
-        Spaceship& operator++();  // Pré-incremento
-        Spaceship& operator--();  // Pré-decremento
+        Spaceship& operator++();  
+        Spaceship& operator--();  
+        static Texture2D image;//feito como static para nao precisar inicializar um objeto e ser acessado livremente em incial screen onde tem seu valor mudado.
 
     private:
-        Texture2D image;
+        //feito como private para que nao seja acessado por outras classes e como forma de protecao da vairavel de posicao
         Vector2 position;
         double lastFireTime;
         Sound laserSound;

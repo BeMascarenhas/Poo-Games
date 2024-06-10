@@ -1,11 +1,10 @@
 #include "spaceship.hpp"
 #include "laser.hpp"
-
+Texture2D Spaceship::image;
 Spaceship::Spaceship()
 {
-    image = LoadTexture("Graphics/Portugol.png");
     position.x = (GetScreenWidth() - image.width)/2;
-    position.y = GetScreenHeight() - image.height - 90;
+    position.y = GetScreenHeight() - image.height - 120;
     lastFireTime = 0.0;
     laserSound = LoadSound("Sounds/laser.ogg");
     fireRate = 0.35;

@@ -222,7 +222,10 @@ void Game::CheckCollisions()
          {
              heart.alive = false;
              laser.active = false;
-             lives++;
+             if(lives < 3){
+                ++(*this);
+             }
+
              PlaySound(explosionSound);
          }
         

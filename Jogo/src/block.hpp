@@ -7,6 +7,7 @@ class Block:public GameObject{
         void Draw();
         Rectangle getRect();
     private:
+        //feito como private pois nao sera acessado por outras classes e como forma de protecao da vairavel de posicao
         Vector2 position;
         
 };

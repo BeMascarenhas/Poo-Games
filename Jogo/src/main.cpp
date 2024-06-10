@@ -32,6 +32,7 @@ int main()
         {case Inicial:
             {
                 inicialscreen.nameinput();
+                inicialscreen.checkclick();
                 if (IsKeyPressed(KEY_ENTER))
                 {
                     currentScreen = Gameplay;

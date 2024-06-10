@@ -9,6 +9,7 @@ class Laser: public GameObject{
         Rectangle getRect();
         bool active;
     private:
+    //feito como private pois nao sera acessado por outras classes e como forma de protecao da vairavel de posicao
         Vector2 position;
         int speed;
 };
