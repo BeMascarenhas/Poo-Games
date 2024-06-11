@@ -21,8 +21,8 @@ class Game{
         int highscore;
         Music music;
         friend ostream& operator<<(ostream& os, const Game& game);//sobrecarga do operador de insercao para a lista de jogadores, o uso do friend se da pra q a sobrecarga podesse ser feita dentro na clasee
-        Game& operator--();
-        Game& operator++();
+        Game& operator--();//diminui a vida do jogador
+        Game& operator++();// seta a vida do jogador para 3
 
     private:
     //funcoes privadas e atributos privados que nao precisam ser acessados fora da classe

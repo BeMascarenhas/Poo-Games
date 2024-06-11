@@ -1,17 +1,11 @@
 
-be: 1200
 pedrolo: 3400
 jao: 1000
-be: 14500
 po: 0
 pedro: 500
-oi: 0
-oi: 0
 ryan: 4000
 gui: 8900
-dura: 0
-joao: 0
-be: 26500
 be: 26500
 ge: 26500
-ge: 26500
+Rodrigo: 26500
+Rodrigo: 26500

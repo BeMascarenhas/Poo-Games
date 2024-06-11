@@ -24,9 +24,9 @@ InicialScreen::~InicialScreen() {
 
 void InicialScreen::Draw() {
     BeginDrawing();
-    ClearBackground(RAYWHITE);
+    ClearBackground(DARKGRAY);
 
-    DrawText("Write your name down here! ", 240, 140, 20, GRAY);
+    DrawText("SPACE\n\n\n INVADERS ", 360, 100, 20, YELLOW);
 
     // Draw text input box
     DrawRectangleRec(textBox, LIGHTGRAY);

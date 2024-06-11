@@ -16,7 +16,7 @@ class Spaceship{
         void Reset();
         vector<Laser> lasers;
         float fireRate;
-        Spaceship& operator++();  
+        Spaceship& operator++();  //fazem a mesma coisa de mysteryship, porem com incremento de 7
         Spaceship& operator--();  
         static Texture2D image;//feito como static para nao precisar inicializar um objeto e ser acessado livremente em incial screen onde tem seu valor mudado.
 

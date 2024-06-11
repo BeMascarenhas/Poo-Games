@@ -223,7 +223,7 @@ void Game::CheckCollisions()
              heart.alive = false;
              laser.active = false;
              if(lives < 3){
-                ++(*this);
+                lives+=1;
              }
 
              PlaySound(explosionSound);
@@ -472,7 +472,7 @@ void Game::Spawnboss()
      boss.position.x = 350;
      boss.position.y = 350;
      boss.alive = true;
-     boss.lives = 1;
+     boss.lives = 10;
      alienlasers.clear();
 }
 ostream& operator<<(ostream& os, const Game& game) {

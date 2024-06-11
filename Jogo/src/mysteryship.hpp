@@ -7,7 +7,7 @@ class MysteryShip:public Alien{
         MysteryShip(int type, Vector2 position);
         ~MysteryShip();
         void Update();
-        void Draw();
+        void Draw() override;
         void Spawn();
         Rectangle getRect();
         static Texture2D mysteryImages[2];// static pelo mesmo motivo de alien
@@ -15,8 +15,8 @@ class MysteryShip:public Alien{
         int speed;
         bool alive;
 
-         MysteryShip& operator++();  
-         MysteryShip& operator--();
+         MysteryShip& operator++(); //seta o incremento da posicao para 3, pois vai para a direita
+         MysteryShip& operator--();//seta o incremento da posicao para -3, pois vai para a esquerda
 
     private:
         
