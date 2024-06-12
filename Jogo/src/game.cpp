@@ -153,7 +153,7 @@ Game& Game::operator--() {
 }
 Game &Game::operator++()
 {
-    lives = 3;
+    ++lives;
     return *this;
 }
 void Game::CheckCollisions()
@@ -223,7 +223,7 @@ void Game::CheckCollisions()
              heart.alive = false;
              laser.active = false;
              if(lives < 3){
-                lives+=1;
+                ++(*this);//aumenta a vida do jogador;
              }
 
              PlaySound(explosionSound);
@@ -550,7 +550,7 @@ void Game::InitGame()
     timeLastSpawn =0.0;
     timeLastBossShoot = 0.0;
     mysteryShipSpawnInterval = GetRandomValue(7,15);
-    ++(*this);//lives = 3;
+    lives = 3;
     score = 0;
     //bosslives = 1;
     highscore = loadHighScore();

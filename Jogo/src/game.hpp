@@ -48,8 +48,8 @@ class Game{
         int bossDirection;
         vector<Laser> alienlasers;
         vector<Laser> bossLasers;
-        constexpr static float alienShootCooldown = 0.35;
-        constexpr static float bossShootCooldown = 0.25;
+        float alienShootCooldown = 0.35;
+        float bossShootCooldown = 0.25;
         float timeLastAlienShoot;
         float timeLastBossShoot;
         MysteryShip mystery = MysteryShip(0,{300,350});

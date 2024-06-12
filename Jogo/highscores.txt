@@ -9,3 +9,5 @@ be: 26500
 ge: 26500
 Rodrigo: 26500
 Rodrigo: 26500
+lo: 26500
+lo: 26500
