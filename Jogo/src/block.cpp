@@ -2,7 +2,6 @@
 
 Block::Block(Vector2 position):GameObject(position)
 {
-    this -> position = position;
 }
 
 

@@ -13,7 +13,6 @@ class Boss:public Alien{
         bool alive = false;
         Texture2D bossImages[1];
         void UnloadImages();
-        Vector2 position;
         void bossMove();
         int bossDirection;
 

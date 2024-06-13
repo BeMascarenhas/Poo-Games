@@ -17,7 +17,6 @@ vector<vector<int>> Obstacle:: grid = {
     };
 Obstacle::Obstacle(Vector2 position):GameObject(position)
 {
-    this -> position = position;  
 
     
 

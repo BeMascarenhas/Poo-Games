@@ -223,9 +223,8 @@ void Game::CheckCollisions()
              heart.alive = false;
              laser.active = false;
              if(lives < 3){
-                ++(*this);//aumenta a vida do jogador;
+                ++(*this);
              }
-
              PlaySound(explosionSound);
          }
         

@@ -6,7 +6,6 @@ using namespace std;
 
 Laser::Laser(Vector2 position, int speed): GameObject(position)
 {
-    this -> position = position;
     this -> speed = speed;
     active = true;
 }

@@ -12,7 +12,6 @@ class Alien :public GameObject{
         Rectangle getRect();
         static Texture2D alienImages[5];// foi feito como static para que possa ser compartilhado entre todos os objetos da classe e tambem inicializado somente uma vez.
         int type;
-        Vector2 position;
 
    
 

@@ -11,7 +11,6 @@ class MysteryShip:public Alien{
         void Spawn();
         Rectangle getRect();
         static Texture2D mysteryImages[2];// static pelo mesmo motivo de alien
-        Vector2 position;
         int speed;
         bool alive;
 

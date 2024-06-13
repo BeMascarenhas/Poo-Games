@@ -4,7 +4,6 @@ Texture2D Alien::alienImages[5] = {};
 
 Alien::Alien(int type,Vector2 position): GameObject(position)
 {
-    this->position = position;
     this->type = type;
      if(alienImages[type].id == 0){
 

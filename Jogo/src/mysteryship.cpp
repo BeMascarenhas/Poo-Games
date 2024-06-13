@@ -4,8 +4,6 @@ Texture2D MysteryShip:: mysteryImages[2] = {};
 MysteryShip::MysteryShip(int type, Vector2 position): Alien(type, position)
 {
     mysteryImages[2] = {};
-    this -> position = position;
-    this -> type = type;
     alive = false;
     
     if(mysteryImages[type].id == 0){
@@ -62,12 +60,8 @@ MysteryShip& MysteryShip::operator--() {
 }
 void MysteryShip::Spawn()
 {
-    
     position.y = 90;
     int side = GetRandomValue(0,1);
-    
-    //std::cout<<random<<std::endl;
-   
     if(side == 0)
     {
         position.x = 25;
@@ -78,7 +72,6 @@ void MysteryShip::Spawn()
         --(*this);
     }
     alive = true;
-    
 }
 
 Rectangle MysteryShip::getRect()

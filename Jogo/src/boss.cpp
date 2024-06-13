@@ -3,8 +3,6 @@ Boss::Boss(int type, Vector2 position): Alien(type, position)
 { 
     bossImages[1] = {};  
     bossDirection = 2;
-    this -> type = type;
-    this -> position = position;
     position.y = 50;
     position.x = 50;
     if(bossImages[type].id == 0){
